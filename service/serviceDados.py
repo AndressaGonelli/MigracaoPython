@@ -1,8 +1,7 @@
 from genericpath import exists
-from tkinter import filedialog
-from tkinter import Tk
 import pandas as pd
 from pyodbc import Error
+import os
 
 from service.serviceCliente import ServiceCliente
 from service.serviceEndereco import ServiceEndereco
@@ -19,22 +18,22 @@ class ServiceDados:
     def carregarDoCSV():
         try:
             enderecos = ServiceDados.criarObjetoDoCSV(
-                "ENDEREÇOS", ServiceEndereco, None)
+                "ENDEREÇOS", ServiceEndereco, None,'enderecos.csv')
 
             clientes = ServiceDados.criarObjetoDoCSV(
-                "CLIENTES", ServiceCliente, enderecos)
+                "CLIENTES", ServiceCliente, enderecos,'clientes.csv')
 
             fornecedores = ServiceDados.criarObjetoDoCSV(
-                "FORNECEDORES", ServiceFornecedor, enderecos)
+                "FORNECEDORES", ServiceFornecedor, enderecos,'fornecedores.csv')
 
             produtos = ServiceDados.criarObjetoDoCSV(
-                "PRODUTOS", ServiceProduto, fornecedores)
+                "PRODUTOS", ServiceProduto, fornecedores,'produtos.csv')
 
             pedidos = ServiceDados.criarObjetoDoCSV(
-                "PEDIDOS", ServicePedido, clientes)
+                "PEDIDOS", ServicePedido, clientes,'pedidos.csv')
 
             itensPedido = ServiceDados.criarObjetoDoCSV("ITENS DO PEDIDO", ServicePedidoItens, {
-                'pedidos': pedidos, 'produtos': produtos})
+                'pedidos': pedidos, 'produtos': produtos},'pedidos_itens.csv')
            
             return {'enderecos': enderecos, 'clientes': clientes, 'fornecedores': fornecedores, 'produtos': produtos, 'pedidos': pedidos, 'itensPedidos': itensPedido}
 
@@ -46,12 +45,10 @@ class ServiceDados:
             print(f"Erro inesperado {err=}, {type(err)=}")
 
     @staticmethod
-    def criarObjetoDoCSV(tipo, service, args):
-        data = [("Arquivo CSV(*.csv)", "*.csv")]
-        input(
-            f"Pressione ENTER para selecionar o arquivo CSV que contém os {tipo}")
-        caminho = filedialog.askopenfilename(
-            title=f"Selecione o CSV de {tipo}", filetypes=data)
+    def criarObjetoDoCSV(tipo, service, args,arquivo):
+
+        path_completo = os.path.abspath(".\\files")
+        caminho=f'{path_completo}/{arquivo}'
 
         if exists(caminho):
             itens = []
@@ -64,6 +61,7 @@ class ServiceDados:
         else:
             print(
                 f"Falha no arquivo de {tipo}. Caminho ou arquivo informado não existe. Tente novamente")
+            print(caminho)
             return None
 
     @staticmethod
