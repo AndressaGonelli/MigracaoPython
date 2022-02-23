@@ -31,26 +31,26 @@ while True:
     print("==========================\n")
     opcao = int(input())
 
-    match opcao:
-        case 1:  # Conectar banco de dados
-            ServiceODBC.testConnection()
-        case 2:  # Criar estruturas de tabela
-            ServiceDados.criarTabelasDB()
-        case 3: # Apagar todos as tabelas do Banco de dados
-            ServiceODBC.dropAllTables()
-        case 4:  # Carregar dados do CSV
-            dict_tabelas = ServiceDados.carregarDoCSV()
-        case 5:  # Apagar dados carregados
-            dict_tabelas = ServiceDados.apagarDadosCarregados(dict_tabelas)
-        case 6:  # Sumarizar dados carregados
-            ServiceDados.Sumarizar(dict_tabelas)
-        case 7:  # Inserir no banco de dados os dados carregados
-            ServiceDados.inserirNasTabelasDB(dict_tabelas)
-        case 8:  # Sumarizar dados salvos no Banco de dados
-            ServiceDados.SumarizarDB()
-        case 9:  # Apagar todos os dados do Banco de dados
-            ServiceODBC.deleteAllTables()
-        case 10:
-            break
-        case _:
-            print("\nOpção inválida\n")
+     
+    if opcao == 1:  # Conectar banco de dados
+        ServiceODBC.testConnection()
+    elif opcao == 2:  # Criar estruturas de tabela
+        ServiceDados.criarTabelasDB()
+    elif opcao == 3: # Apagar todos as tabelas do Banco de dados
+        ServiceODBC.dropAllTables()
+    elif opcao == 4:# Carregar dados do CSV
+        dict_tabelas = ServiceDados.carregarDoCSV()
+    elif opcao == 5:# Apagar dados carregados
+        dict_tabelas = ServiceDados.apagarDadosCarregados(dict_tabelas)
+    elif opcao == 6:# Sumarizar dados carregados
+        ServiceDados.Sumarizar(dict_tabelas)
+    elif opcao == 7:# Inserir no banco de dados os dados carregados
+        ServiceDados.inserirNasTabelasDB(dict_tabelas)
+    elif opcao == 8:# Sumarizar dados salvos no Banco de dados
+        ServiceDados.SumarizarDB()
+    elif opcao == 9:# Apagar todos os dados do Banco de dados
+        ServiceODBC.deleteAllTables()
+    elif opcao == 10:
+        break
+    else:
+        print("\nOpção inválida\n")
