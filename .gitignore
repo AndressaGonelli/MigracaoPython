@@ -2,7 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyi
+*.cfg
+*.csv
 
+arquivos_carga_csv/
 # C extensions
 *.so
 
@@ -14,10 +18,13 @@ dist/
 downloads/
 eggs/
 .eggs/
+Include/
+Lib/
 lib/
 lib64/
 parts/
 sdist/
+Scripts/
 var/
 wheels/
 pip-wheel-metadata/
