@@ -1,0 +1,4 @@
+pandas==1.4.1
+pyodbc==4.0.32
+python-dotenv==0.19.2
+
